@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>youtube iframe track</title>
+</head>
+
+<body>
+<div id="player">
+    <iframe id="youtube-video-player" type="text/html" width="640" height="390"
+			  src="http://www.youtube.com/embed/M7lc1UVf-VE?controls=0&showinfo=0&disablekb=1&autoplay=0&modestbranding=1&rel=0&iv_load_policy=3&wmode=transparent&enablejsapi=1"
+			  frameborder="0"></iframe>
+</div>
+
+<script>
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-video-player', {
+       
+        events: {
+            onReady: onReady,
+            onStateChange: onPlayerStateChange
+        }
+    });
+}
+
+function onReady(event) {
+    console.log('About to start playback.');
+    event.target.playVideo();
+}
+
+function onPlayerStateChange(event) {
+    console.log('State is', event.data);
+}
+</script>
+</body>
+</html>
